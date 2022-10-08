@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.input.KeyCodeCombination?>
+<BorderPane xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="net.veldor.rdc_informer.controller.MainController">
+    <top>
+        <MenuBar>
+            <Menu mnemonicParsing="false" text="Инструменты">
+                <MenuItem mnemonicParsing="false" onAction="#searchInArchive" text="Глобальный поиск">
+                    <accelerator>
+                        <KeyCodeCombination alt="DOWN" code="F" control="DOWN" meta="UP" shift="UP" shortcut="UP"/>
+                    </accelerator>
+                </MenuItem>
+            </Menu>
+        </MenuBar>
+    </top>
+    <bottom>
+        <VBox>
+            <Label alignment="CENTER" text="Для загрузки файлов на сервер- перетащите их в окно"
+                   textAlignment="CENTER"/>
+            <TitledPane expanded="false" textAlignment="CENTER">
+                <TextArea fx:id="logArea" editable="false">
+                    <VBox.margin>
+                        <Insets top="20.0"/>
+                    </VBox.margin>
+                </TextArea>
+            </TitledPane>
+        </VBox>
+    </bottom>
+    <right>
+        <VBox alignment="TOP_CENTER" spacing="10.0">
+            <DatePicker fx:id="datePicker"/>
+            <Label text="Статус сервера:"/>
+            <Label fx:id="serverStateView" text="Проверка..." textAlignment="CENTER" textFill="#0010eb"/>
+            <Label fx:id="executionsCountStateView" text="Проверка..." textAlignment="CENTER" textFill="#0010eb"/>
+            <RadioButton mnemonicParsing="false" selected="true" text="Аврора">
+                <toggleGroup>
+                    <ToggleGroup fx:id="center"/>
+                </toggleGroup>
+            </RadioButton>
+            <RadioButton mnemonicParsing="false" text="НВН" toggleGroup="$center"/>
+            <RadioButton mnemonicParsing="false" text="КТ" toggleGroup="$center"/>
+            <Button onAction="#refreshExecutions">Обновить</Button>
+            <Button onAction="#searchInArchive" text="Поиск в архиве">Глобальный поиск</Button>
+            <ProgressBar prefWidth="100.0" progress="0.0" fx:id="progressBar"/>
+            <padding>
+                <Insets left="10.0" right="10.0"/>
+            </padding>
+            <padding>
+                <Insets left="10.0" right="10.0"/>
+            </padding>
+        </VBox>
+    </right>
+    <center>
+        <VBox fx:id="mainContainer" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver">
+
+            <VBox alignment="CENTER">
+                <TableView fx:id="executionsListTable"
+                           style="-fx-selection-bar: #a5fce1;-fx-highlight-fill: lightgray;">
+                    <columns>
+                        <!-- Колонки таблицы -->
+                        <TableColumn fx:id="executionNumberColumn" editable="false" maxWidth="120.0" minWidth="120.0"
+                                     prefWidth="120.0" styleClass="table-column" text="№ обследования"/>
+                        <TableColumn fx:id="haveExecutionColumn" editable="false" maxWidth="120.0" minWidth="120.0"
+                                     prefWidth="120.0" styleClass="table-column" text="Архив"/>
+                        <TableColumn fx:id="haveConclusionColumn" editable="false" maxWidth="120.0" minWidth="120.0"
+                                     prefWidth="120.0" styleClass="table-column" text="Заключения"/>
+                        <TableColumn fx:id="personalsColumn" editable="false" prefWidth="141.99999237060547"
+                                     styleClass="table-column" text="ФИО пациента"/>
+                        <TableColumn fx:id="examinationAreasColumn" editable="false" styleClass="table-column"
+                                     text="Зоны обследования"/>
+                        <TableColumn fx:id="contrastColumn" editable="false" styleClass="table-column"
+                                     text="Контраст"/>
+                        <TableColumn fx:id="doctorColumn" editable="false" styleClass="table-column"
+                                     text="Доктор"/>
+                        <TableColumn fx:id="hasMailColumn" editable="false" styleClass="table-column"
+                                     text="Наличие почты"/>
+                        <TableColumn fx:id="isMessageSentColumn" editable="false" styleClass="table-column"
+                                     text="Почта отправлена"/>
+                        <TableColumn fx:id="previousExecutionsColumn" editable="false" styleClass="table-column"
+                                     text="Прошлые обследования"/>
+                    </columns>
+                    <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                    </padding>
+                    <columnResizePolicy>
+                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
+                    </columnResizePolicy>
+                </TableView>
+            </VBox>
+        </VBox>
+    </center>
+</BorderPane>
